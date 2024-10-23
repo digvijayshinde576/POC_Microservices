@@ -5,7 +5,7 @@ spring:
         url: http://localhost:1111/
 
 server:
-  port: 8082
+  port: 8092
 management:
   health:
     circuitbreakers:
