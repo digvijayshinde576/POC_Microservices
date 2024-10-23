@@ -1,12 +1,9 @@
 spring:
-  application:
-    name: GreetMessage-Service
   boot:
     admin:
       client:
         url: http://localhost:1111/
-  config:
-    import: optional:configserver:http://localhost:9093
+
 server:
   port: 8082
 management:
@@ -42,5 +39,3 @@ resilience4j:
       welcomeRetry:
         maxAttempts: 3
         waitDuration: 5s
-
-
