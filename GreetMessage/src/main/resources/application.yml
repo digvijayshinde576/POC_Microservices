@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: GreetMessage-Service
+  boot:
+    admin:
+      client:
+        url: http://localhost:1111/
+  config:
+    import: optional:configserver:http://localhost:9093
+server:
+  port: 8082
+management:
+  health:
+    circuitbreakers:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health,info,audit-events
+
+
+  endpoint:
+    health:
+      show-details: ALWAYS
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      welcomeBreak:
+        registerHealthIndicator: true
+        eventConsumerBufferSize: 10
+        failureRateThreshold: 50
+        minimumNumberOfCalls: 5
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        waitDurationInOpenState: 6
+        permittedNumberOfCallsInHalfOpenState: 3
+        slidingWindowSize: 10
+        slidingWindowType: COUNT_BASED
+
+  retry:
+    instances:
+      welcomeRetry:
+        maxAttempts: 3
+        waitDuration: 5s
